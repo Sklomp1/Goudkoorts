@@ -3,7 +3,9 @@ using Goudkoorts.Presentation_Layer;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Goudkoorts.Proces_Layer
 {
@@ -21,68 +23,107 @@ namespace Goudkoorts.Proces_Layer
 		{
 			inputView = new InputView();
 			outputView = new OutputView();
-			game = new Game();
 		}
 
 		public void StartGame()
 		{
 			Test();
+
+			game.Play();
 			//outputView.PrintGame();
 		}
-
 
 		public void Test()
 		{
 			string[] lines = File.ReadAllLines("../../../GameField/gamefield.txt");
+			game = new Game(lines.Count());
+
+			int row = -1;
 
 			foreach (string line in lines)
 			{
+				row++;
 				foreach (char c in line)
 				{
-					FieldDDL FDDL = new FieldDDL();
-					game.AddField(FDDL);
 					switch (c)
 					{
+						case 'K':
+							Wharf wharf = new Wharf();
+							game.AddField(wharf, row);
+							break;
+						case 'W':
+							game.AddField(new Water(), row);
+							break;
+						case 'T':
+							game.AddField(new HorizontalRails("Left"), row);
+							break;
 						case 'R':
-							FDDL.Field = new Rails();
+							game.AddField(new HorizontalRails("Right"), row);
+							break;
+						case 'F':
+							game.AddField(new FinishRail(), row);
 							break;
 						case 'E':
-							Console.Write("      ");
+							game.AddField(new Empty(), row);
+							break;
+						case 'D':
+							game.AddField(new VerticalRails("Down"), row);
 							break;
 						case 'U':
-							Console.Write("   ║  ");
+							game.AddField(new VerticalRails("Up"), row);
+							break;
+						case 'X':
+							game.AddField(new ShuntRail(), row);
 							break;
 						case 'L':
-							Console.Write("██████");
+							Warehouse warehouse = new Warehouse();
+							game.AddField(warehouse, row);
+							game.AddWareHouse(warehouse);
 							break;
 						case 'P':
-							Console.Write(" ---> ");
+							game.AddField(new Direction(), row);
 							break;
 						case 'Q':
-							Console.Write(" <--- ");
+							game.AddField(new Direction(), row);
 							break;
 						case '[':
-							Console.Write("   ╔══");
+							SideRail tempp = new SideRail(c);
+							game.SideRails.Add(tempp);
+
+							game.AddField(tempp, row);
 							break;
 						case ']':
-							Console.Write("═══╗  ");
+							SideRail temp = new SideRail(c);
+							game.SideRails.Add(temp);
+
+							game.AddField(temp, row);
 							break;
 						case '1':
-							Console.Write("═══╗  ");
+							game.AddField(new RightDownTurnRails("Right"), row);
 							break;
 						case '2':
-							Console.Write("   ╔══");
+							game.AddField(new RightDownTurnRails("Left"), row);
 							break;
 						case '3':
-							Console.Write("   ╚══");
+							game.AddField(new UpRightTurnRails("Right"), row);
 							break;
 						case '4':
-							Console.Write("═══╝  ");
+							game.AddField(new UpRightTurnRails("Left"), row);
+							break;
+						case '5':
+							game.AddField(new DownRightTurnRails("Right"), row);
+							break;
+						case '6':
+							game.AddField(new DownRightTurnRails("Left"), row);
+							break;
+						case '7':
+							game.AddField(new RightUpTurnRails("Right"), row);
+							break;
+						case '8':
+							game.AddField(new RightUpTurnRails("Left"), row);
 							break;
 					}
-					Console.Write(" ");
 				}
-				Console.WriteLine();
 			}
 		}
 	}

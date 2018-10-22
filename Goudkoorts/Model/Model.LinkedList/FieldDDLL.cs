@@ -6,8 +6,8 @@ namespace Goudkoorts.Model
 {
 	public class FieldDDLL
 	{
-		public FieldDDL[] WareHouses { get; set; }
-		public FieldDDL First { get; set; }
-		public FieldDDL Last { get; set; }
+		public Field[] WareHouses { get; set; }
+		public Field[] RowFirst { get; set; }
+		public Field Last { get; set; }
 	}
 }

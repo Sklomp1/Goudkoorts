@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Goudkoorts.Model
 {
-	class Normal
+	public abstract class TurnRail : Rails
 	{
+
 	}
 }

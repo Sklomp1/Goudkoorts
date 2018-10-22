@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Goudkoorts.Model
 {
-	public class Field
+	public abstract class DriveAble : Field
 	{
 
 	}

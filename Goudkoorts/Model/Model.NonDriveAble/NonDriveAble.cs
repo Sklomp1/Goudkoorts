@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Goudkoorts.Model
 {
-	class Warehouse
+	public abstract class NonDriveAble : Field
 	{
+
 	}
 }
