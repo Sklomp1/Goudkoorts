@@ -4,7 +4,13 @@ using System.Text;
 
 namespace Goudkoorts.Presentation_Layer
 {
-	class InputView
+	public class InputView
 	{
+
+
+		public ConsoleKeyInfo ReadKey()
+		{
+			return Console.ReadKey(true);
+		}
 	}
 }

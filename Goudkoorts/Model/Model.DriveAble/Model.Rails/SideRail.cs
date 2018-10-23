@@ -42,6 +42,7 @@ namespace Goudkoorts.Model
 
 		public void SwitchRails()
 		{
+			if(Cart == null)
 			switched = !switched;
 		}
 

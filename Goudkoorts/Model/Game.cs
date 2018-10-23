@@ -13,88 +13,64 @@ namespace Goudkoorts.Model
 		public List<Cart> Carts { get; set; }
 		public List<SideRail> SideRails { get; set; }
 		public Ship Ship { get; set; }
+		public List<Warehouse> WareHouses { get; set; }
 
-		private int time = 5;
-		private int score = 0;
-		private int NumberOfWareHouses;
-		private bool play = true;
+		public int Time { get; set; }
+		public int Score { get; set; }
+		public int MoveSpeed { get; set; }
+		public int CartSpeed { get; set; }
 
 		public Game(int capacity)
 		{
+			Time = 36000;
+			Score = 0;
+			MoveSpeed = 5;
+			CartSpeed = 15;
+
 			Carts = new List<Cart>();
 			SideRails = new List<SideRail>();
+			WareHouses = new List<Warehouse>();
 			FieldDDLL = new FieldDDLL
 			{
-				RowFirst = new Field[capacity],
-				WareHouses = new Field[3]
+				RowFirst = new Field[capacity]
 			};
 		}
 
-		public void Play()
+		public void AddShip()
 		{
 			Ship = new Ship
 			{
 				Current = FieldDDLL.RowFirst[2]
 			};
-
-			int moves = 1;
-
-			while (play)
-			{
-				if (Console.KeyAvailable)
-				{
-					ConsoleKeyInfo key = Console.ReadKey(true);
-					switch (key.Key)
-					{
-						case ConsoleKey.D1:
-							SideRails.ElementAt(0).SwitchRails();
-							break;
-						case ConsoleKey.D2:
-							SideRails.ElementAt(1).SwitchRails();
-							break;
-						case ConsoleKey.D3:
-							SideRails.ElementAt(2).SwitchRails();
-							break;
-						case ConsoleKey.D4:
-							SideRails.ElementAt(3).SwitchRails();
-							break;
-						case ConsoleKey.D5:
-							SideRails.ElementAt(4).SwitchRails();
-							break;
-						default:
-							break;
-					}
-				}
-				Move(moves);
-				PrintGame();
-
-				Thread.Sleep(1000);
-				moves++;
-			}
-			Console.WriteLine("YOU DIED!!");
 		}
 
-		private void Move(int move)
+		public void SwitchRails(int number)
 		{
-			if (move % 5 == 0)
+			SideRails.ElementAt(number).SwitchRails();
+		}
+
+
+		public bool MoveCarts()
+		{
+			if (Time % CartSpeed == 0)
 			{
 				Random random = new Random();
 				int randomNumber = random.Next(3);
 
 				Cart cart = new Cart
 				{
-					Current = FieldDDLL.WareHouses[randomNumber]
+					Current = WareHouses.ElementAt(randomNumber)
 				};
 				Carts.Add(cart);
 			}
-			if (time == -1)
+			if (Time % MoveSpeed == 0)
 			{
-				foreach (Cart c in Carts.Reverse<Cart>())
+				//foreach (Cart c in Carts.Reverse<Cart>())
+				foreach (Cart c in Carts.ToList())
 				{
 					if (!c.Move())
 					{
-						play = false;
-						return;
+						return false;
 					}
 
 					if (c.Current == null) Carts.Remove(c);
@@ -107,49 +83,37 @@ namespace Goudkoorts.Model
 				// moved past last water
 				if (Ship.Move())
 				{
-					score += 10;
-					Ship = null;
+					Score += 10;
 					Ship = new Ship
 					{
 						Current = FieldDDLL.RowFirst[2]
 					};
+					EditLevel();
 				}
-
 			}
+			return true;
 		}
 
-		public void PrintGame()
+		private void EditLevel()
 		{
-			if (time == -1)
-				time = 5;
-			Console.Clear();
-			Console.Write("\rTime before next movement: {0} | Score: {1} ", time--, score);
-			Console.WriteLine();
-			Console.WriteLine();
-
-			string[] values = new string[FieldDDLL.RowFirst.Length];
-			for (int i = 0; i < values.Length; i++)
+			switch (Score)
 			{
-				var item = FieldDDLL.RowFirst[i];
-
-				while (item != null)
-				{
-					item.PrintField();
-
-
-					Console.Write(" ");
-
-					item = item.Next;
-				}
-				Console.WriteLine();
+				case 10:
+					CartSpeed = 12;
+					MoveSpeed = 4;
+					break;
+				case 20:
+					CartSpeed = 9;
+					MoveSpeed = 3;
+					break;
+				case 30:
+					CartSpeed = 6;
+					MoveSpeed = 2;
+					break;
+				default:
+					break;
 			}
 		}
-
-		public void AddWareHouse(Field wareHouse)
-		{
-			FieldDDLL.WareHouses[NumberOfWareHouses++] = wareHouse;
-		}
-
 
 		public void AddField(Field field, int row)
 		{

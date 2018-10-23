@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Goudkoorts.Model
 {
-	class Warehouse : DriveAble
+	public class Warehouse : Field
 	{
 		public override bool CanMoveTo(Cart cart)
 		{

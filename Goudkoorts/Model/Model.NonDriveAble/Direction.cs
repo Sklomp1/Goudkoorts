@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Goudkoorts.Model
 {
-	public class Direction : NonDriveAble
+	public class Direction : Field
 	{
 		public override bool CanMoveTo(Cart cart)
 		{

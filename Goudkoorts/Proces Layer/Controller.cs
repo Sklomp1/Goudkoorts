@@ -15,116 +15,60 @@ namespace Goudkoorts.Proces_Layer
 
 		private readonly InputView inputView;
 		private readonly OutputView outputView;
+		private readonly Parser parser;
 		private Game game;
+		private bool play = true;
 
 		#endregion
 
 		public Controller()
 		{
+			parser = new Parser();
 			inputView = new InputView();
 			outputView = new OutputView();
 		}
 
 		public void StartGame()
 		{
-			Test();
-
-			game.Play();
-			//outputView.PrintGame();
+			game = parser.SetUpGame(game);
+			Play();
 		}
 
-		public void Test()
+		private void Play()
 		{
-			string[] lines = File.ReadAllLines("../../../GameField/gamefield.txt");
-			game = new Game(lines.Count());
-
-			int row = -1;
-
-			foreach (string line in lines)
+			game.AddShip();
+			while (play)
 			{
-				row++;
-				foreach (char c in line)
+				if (Console.KeyAvailable)
 				{
-					switch (c)
+					ConsoleKeyInfo key = inputView.ReadKey();
+
+					switch (key.Key)
 					{
-						case 'K':
-							Wharf wharf = new Wharf();
-							game.AddField(wharf, row);
+						case ConsoleKey.D1:
+							game.SwitchRails(0);
 							break;
-						case 'W':
-							game.AddField(new Water(), row);
+						case ConsoleKey.D2:
+							game.SwitchRails(1);
 							break;
-						case 'T':
-							game.AddField(new HorizontalRails("Left"), row);
+						case ConsoleKey.D3:
+							game.SwitchRails(2);
 							break;
-						case 'R':
-							game.AddField(new HorizontalRails("Right"), row);
+						case ConsoleKey.D4:
+							game.SwitchRails(3);
 							break;
-						case 'F':
-							game.AddField(new FinishRail(), row);
+						case ConsoleKey.D5:
+							game.SwitchRails(4);
 							break;
-						case 'E':
-							game.AddField(new Empty(), row);
-							break;
-						case 'D':
-							game.AddField(new VerticalRails("Down"), row);
-							break;
-						case 'U':
-							game.AddField(new VerticalRails("Up"), row);
-							break;
-						case 'X':
-							game.AddField(new ShuntRail(), row);
-							break;
-						case 'L':
-							Warehouse warehouse = new Warehouse();
-							game.AddField(warehouse, row);
-							game.AddWareHouse(warehouse);
-							break;
-						case 'P':
-							game.AddField(new Direction(), row);
-							break;
-						case 'Q':
-							game.AddField(new Direction(), row);
-							break;
-						case '[':
-							SideRail tempp = new SideRail(c);
-							game.SideRails.Add(tempp);
-
-							game.AddField(tempp, row);
-							break;
-						case ']':
-							SideRail temp = new SideRail(c);
-							game.SideRails.Add(temp);
-
-							game.AddField(temp, row);
-							break;
-						case '1':
-							game.AddField(new RightDownTurnRails("Right"), row);
-							break;
-						case '2':
-							game.AddField(new RightDownTurnRails("Left"), row);
-							break;
-						case '3':
-							game.AddField(new UpRightTurnRails("Right"), row);
-							break;
-						case '4':
-							game.AddField(new UpRightTurnRails("Left"), row);
-							break;
-						case '5':
-							game.AddField(new DownRightTurnRails("Right"), row);
-							break;
-						case '6':
-							game.AddField(new DownRightTurnRails("Left"), row);
-							break;
-						case '7':
-							game.AddField(new RightUpTurnRails("Right"), row);
-							break;
-						case '8':
-							game.AddField(new RightUpTurnRails("Left"), row);
+						default:
 							break;
 					}
 				}
+				play = game.MoveCarts();
+				outputView.PrintGame(game.FieldDDLL, game.Time, game.Score, game.MoveSpeed, game.CartSpeed);
+				game.Time--;
 			}
+			Console.WriteLine("You lost, Press any key to close this game");
 		}
 	}
 }

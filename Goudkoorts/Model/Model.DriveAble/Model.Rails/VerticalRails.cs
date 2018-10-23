@@ -13,26 +13,21 @@ namespace Goudkoorts.Model
 
 		public override bool MoveCart(Cart cart)
 		{
-			Cart = null;
+			Field temp;
 
 			if (Direction == "Up")
-			{
-				if (!Up.CanMoveTo(cart)) return true;
-
-				Cart = null;
-				Up.Cart = cart;
-				cart.Current = Up;
-				return true;
-			}
+				temp = Up;
 			else
-			{
-				if (!Down.CanMoveTo(cart)) return true;
+				temp = Down;
 
-				Cart = null;
-				Down.Cart = cart;
-				cart.Current = Down;
-				return true;
-			}
+
+			if (!temp.CanMoveTo(cart)) return true;
+			if (temp.Cart != null) return false;
+
+			Cart = null;
+			temp.Cart = cart;
+			cart.Current = temp;
+			return true;
 		}
 
 		public override void PrintField()
@@ -50,7 +45,7 @@ namespace Goudkoorts.Model
 
 		public override bool CanMoveTo(Cart cart)
 		{
-			return false;
+			return true;
 		}
 	}
 }

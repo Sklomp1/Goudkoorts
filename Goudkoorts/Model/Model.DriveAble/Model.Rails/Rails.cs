@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Goudkoorts.Model
 {
-	public abstract class Rails : DriveAble
+	public abstract class Rails : Field
 	{
 		public string Direction { get; set; }
 		public bool Finish { get; set; }
