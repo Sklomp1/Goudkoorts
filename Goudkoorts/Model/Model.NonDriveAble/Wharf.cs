@@ -23,7 +23,7 @@ namespace Goudkoorts.Model
 
 		public override void PrintField()
 		{
-			Console.Write(" █KK█ ");
+			Console.Write("█DOCK█");
 		}
 	}
 }

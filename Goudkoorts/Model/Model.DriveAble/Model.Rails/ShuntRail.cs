@@ -21,7 +21,7 @@ namespace Goudkoorts.Model
 			if (Cart != null)
 				Console.Write("╚████╝");
 			else
-				Console.Write("══════");
+				Console.Write("══════");        
 		}
 
 		public override Field MoveShip(Ship Ship)

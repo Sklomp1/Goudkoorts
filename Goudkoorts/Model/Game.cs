@@ -78,6 +78,7 @@ namespace Goudkoorts.Model
 					{
 						Ship.AddCargo();
 						c.RemoveCargo();
+                        Score += 1;
 					}
 				}
 				// moved past last water
