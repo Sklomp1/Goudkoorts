@@ -24,8 +24,8 @@ namespace Goudkoorts.Model
 		{
 			Time = 36000;
 			Score = 0;
-			MoveSpeed = 1;
-			CartSpeed = 3;
+			MoveSpeed = 5;
+			CartSpeed = 15;
 
 			Carts = new List<Cart>();
 			SideRails = new List<SideRail>();
