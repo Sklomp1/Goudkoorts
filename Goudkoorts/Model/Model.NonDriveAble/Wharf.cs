@@ -21,9 +21,11 @@ namespace Goudkoorts.Model
 			throw new NotImplementedException();
 		}
 
-		public override void PrintField()
-		{
-			Console.Write("█DOCK█");
+        public override void PrintField()
+        {
+            Console.Write("█DOCK█");
+            
+
 		}
 	}
 }

@@ -20,7 +20,31 @@ namespace Goudkoorts.Model
 		public int MoveSpeed { get; set; }
 		public int CartSpeed { get; set; }
 
-		public Game(int capacity)
+        public Ship Ship1
+        {
+            get => default(Ship);
+            set
+            {
+            }
+        }
+
+        public Cart Cart
+        {
+            get => default(Cart);
+            set
+            {
+            }
+        }
+
+        public FieldDDLL FieldDDLL1
+        {
+            get => default(FieldDDLL);
+            set
+            {
+            }
+        }
+
+        public Game(int capacity)
 		{
 			Time = 36000;
 			Score = 0;

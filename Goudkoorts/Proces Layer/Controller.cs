@@ -28,7 +28,31 @@ namespace Goudkoorts.Proces_Layer
 			outputView = new OutputView();
 		}
 
-		public void StartGame()
+        public OutputView OutputView
+        {
+            get => default(OutputView);
+            set
+            {
+            }
+        }
+
+        public InputView InputView
+        {
+            get => default(InputView);
+            set
+            {
+            }
+        }
+
+        public Parser Parser
+        {
+            get => default(Parser);
+            set
+            {
+            }
+        }
+
+        public void StartGame()
 		{
 			game = parser.SetUpGame(game);
 			Play();

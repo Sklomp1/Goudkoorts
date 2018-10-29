@@ -8,8 +8,16 @@ using System.Text;
 namespace Goudkoorts.Presentation_Layer
 {
 	public class Parser
-	{
-		public Game SetUpGame(Game game)
+    {
+        public Game Game
+        {
+            get => default(Game);
+            set
+            {
+            }
+        }
+
+        public Game SetUpGame(Game game)
 		{
 			string[] lines = File.ReadAllLines("../../../GameField/gamefield.txt");
 			game = new Game(lines.Count());

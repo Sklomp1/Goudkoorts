@@ -4,8 +4,16 @@ using System;
 namespace Goudkoorts
 {
 	public class Program
-	{
-		static void Main(string[] args)
+    {
+        public Controller Controller
+        {
+            get => default(Controller);
+            set
+            {
+            }
+        }
+
+        static void Main(string[] args)
 		{
 			Controller controller = new Controller();
 			controller.StartGame();
