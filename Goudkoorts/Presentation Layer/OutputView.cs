@@ -20,10 +20,10 @@ namespace Goudkoorts.Presentation_Layer
             Console.WriteLine("   1 -- 2       3");
             Console.WriteLine("--/      \\4----5/");
             Console.WriteLine("the goal is to get all gold to the docks (█DOCK█) where you will recieve 1 point for each cart emptied into the ship");
-            Console.WriteLine("after ten carts, the ship is full. you will recieve a 10-point bonus for a full ship");
+            Console.WriteLine("after 8 carts, the ship is full. you will recieve a 10-point bonus for a full ship");
             Console.WriteLine("if the ship is full, you will go to a harder level, in which more carts appear faster");
             Console.WriteLine("you can use the yard (bottom track) to store carts if there is no more place on the rails");
-            Console.Write("\rTime before next movement: {0} | Time before next cart: {1} | Score: {2} | Level {3}", countDownTime, countDownTimeCart, score, score / 10);
+            Console.Write("\rTime before next movement: {0} | Time before next cart: {1} | Score: {2} | Level {3}", countDownTime, countDownTimeCart, score, score / 18);
 			Console.WriteLine();
 			Console.WriteLine();
 

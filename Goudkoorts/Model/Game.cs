@@ -123,15 +123,15 @@ namespace Goudkoorts.Model
 		{
 			switch (Score)
 			{
-				case 10:
+				case 18:
 					CartSpeed = 12;
 					MoveSpeed = 4;
 					break;
-				case 20:
+				case 36:
 					CartSpeed = 9;
 					MoveSpeed = 3;
 					break;
-				case 30:
+				case 54:
 					CartSpeed = 6;
 					MoveSpeed = 2;
 					break;
